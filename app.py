@@ -3,7 +3,7 @@ from flask import Flask, request, render_template
 import requests
 from helperfunctions import cleanTimetableLink
 from main import main
-from webscraping_local import get_download_link, save_image
+from webscraping import get_download_link, save_image
 import os
 
 
