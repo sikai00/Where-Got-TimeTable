@@ -2,8 +2,10 @@ from datetime import date, time
 from flask import Flask, request, render_template
 import requests
 from main import main
-from webscraping_local import get_download_link, save_image
+from webscraping import get_download_link, save_image
 import os
+
+
 
 app = Flask(__name__)
 appName = "where-got-time-table"
@@ -26,7 +28,6 @@ def index():
         friday = "Friday" if request.form.get("Friday") == "on" else "off"
 
         freeday_list = list(filter(lambda x: x != "off", [monday, tuesday, wednesday, thursday, friday]))
-        print(f'asdf{freeday_list}')
 
         interval_input = request.form.get("betweenlessons")
         interval = False if interval_input == "" else int(interval_input)
