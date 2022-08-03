@@ -41,7 +41,7 @@ def index():
 
         dl_link = get_download_link(link)
         
-        save_image(dl_link, 'src/static/My Timetable.png')
+        save_image(dl_link, 'static/My Timetable.png')
         
         return render_template('results.html', link=link)
     else:
