@@ -35,6 +35,16 @@ def get_academic_year():
 
     return academic_year
 
+# share?CS2100=REC:2,LEC:1,TUT:04,LAB:32&CS2102=LEC:1,TUT:04&CS2105=TUT:16,LEC:1V&ES2660=SEC:G02&ST2334=LEC:1,TUT:8
+def cleanTimetableLink(link):
+    module_list = []
+    modules = link.split('share?', 1)[1]
+    split_module_det = modules.split('&')
+    for mod in split_module_det:
+        keys = mod.split('=')[0]
+        module_list.append(keys)
+    return module_list
+
 
 # Dictionaries to convert between days
 days = {"Monday": 0, "Tuesday": 1, "Wednesday": 2, "Thursday": 3, "Friday": 4, "Saturday": 5, "Sunday": 6}

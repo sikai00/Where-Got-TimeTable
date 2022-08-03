@@ -17,13 +17,11 @@ def main(module_code_list, semester, starttime, endtime, freeday_list, lunchbrea
 
     module_codes = module_code_list
 
-    # try:
-    #     container = get_all_module_info(module_codes, academic_year, semester)
-    # except Exception as e:
-    #     print(e)
-    #     return False
-
-    container = get_all_module_info(module_codes, academic_year, semester)
+    try:
+        container = get_all_module_info(module_codes, academic_year, semester)
+    except Exception as e:
+        print(e)
+        return False
 
     # Takes in a 2D list containing lists of timetables
     # as well as the fitness and soft constraints function

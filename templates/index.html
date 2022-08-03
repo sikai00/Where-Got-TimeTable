@@ -23,7 +23,10 @@
     <div class="main">
         <form autocomplete="off" method="POST">
             <label for="modules"><strong>Modules</strong></label>
-            <input id="modules" name="modules" type="select" class="text-input" placeholder="e.g. CS1101S CS1231S MA2001" required>
+            <input id="modules" name="modules" type="select" class="text-input" placeholder="e.g. CS1101S CS1231S MA2001">
+
+            <label for="link"><strong>Existing timetable link</strong></label>
+            <input id="link" name="link" type="select" class="text-input" placeholder="e.g. https://nusmods.com/timetable/sem-1/share?CS1231S=TUT:08B,LEC:1&MA2001=LEC:1,LAB:2,TUT:23&MA1521=TUT:12,LEC:2">
             
             <label for="semester"><strong>Semester</strong></label>
             <select id="semester" name="semester" type="select" class="text-input">
@@ -121,10 +124,14 @@
     var wait_text = document.getElementById("wait-text");
     var generate = document.getElementById("generate");
     var modules = document.getElementById("modules");
+    var link = document.getElementById("link");
     
 
     generate.onclick = () => {
-        if (modules.value != "") {
+        if (modules.value == "" && link.value == "") {
+            wait_text.style.display = "block";
+            wait_text.innerHTML = "Key in your modules or a timetable link!";
+        } else {
             wait_text.style.display = "block";
             wait_text.innerHTML = "Generating...";
         }

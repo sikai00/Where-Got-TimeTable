@@ -1,8 +1,9 @@
 from datetime import date, time
 from flask import Flask, request, render_template
 import requests
+from helperfunctions import cleanTimetableLink
 from main import main
-from webscraping import get_download_link, save_image
+from webscraping_local import get_download_link, save_image
 import os
 
 
@@ -15,7 +16,17 @@ appName = "where-got-time-table"
 def index():
     if request.method == 'POST':
         modules = request.form.get("modules")
-        module_list = [i.upper() for i in modules.split()]
+
+        link = request.form.get("link")
+
+        if link != "":
+            try:
+                module_list = cleanTimetableLink(link=link)
+            except Exception:
+                return render_template('error_link.html')
+        else:
+            module_list = [i.upper() for i in modules.split()]
+
         starttime = int(float(request.form.get("timestart")))
         endtime = int(float(request.form.get("timeend")))
 
@@ -34,16 +45,20 @@ def index():
 
         lunch = True if request.form.get("lunch") == "on" else False
 
-        link = main(module_list, semester, starttime, endtime, freeday_list, lunch, interval)
 
-        if link == False:
-            return render_template('error.html')
+        if len(module_list) != 0:
+            link = main(module_list, semester, starttime, endtime, freeday_list, lunch, interval)
 
-        dl_link = get_download_link(link)
-        
-        save_image(dl_link, 'static/My Timetable.png')
-        
-        return render_template('results.html', link=link)
+            if link == False:
+                return render_template('error_modules.html')
+
+            dl_link = get_download_link(link)
+            
+            save_image(dl_link, 'static/My Timetable.png')
+            
+            return render_template('results.html', link=link)
+        else:
+            return ('', 204)
     else:
         return render_template('index.html')
 
