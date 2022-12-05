@@ -3,7 +3,7 @@ from flask import Flask, request, render_template
 import requests
 from helperfunctions import cleanTimetableLink
 from main import main
-from webscraping import get_download_link, save_image
+from webscraping_local import get_download_link, save_image
 import os
 
 
@@ -52,11 +52,8 @@ def index():
             if link == False:
                 return render_template('error_modules.html')
 
-            dl_link = get_download_link(link)
             
-            save_image(dl_link, 'static/My Timetable.png')
-            
-            return render_template('results.html', link=link)
+            return render_template('results.html')
         else:
             return ('', 204)
     else:
