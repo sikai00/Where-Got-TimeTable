@@ -1,9 +1,7 @@
 from datetime import date, time
 from flask import Flask, request, render_template
-import requests
 from helperfunctions import cleanTimetableLink
 from main import main
-from webscraping_local import get_download_link, save_image
 import os
 
 
@@ -52,8 +50,7 @@ def index():
             if link == False:
                 return render_template('error_modules.html')
 
-            
-            return render_template('results.html')
+            return render_template('results.html', link=link)
         else:
             return ('', 204)
     else:
